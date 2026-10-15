@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ebenspiration — Ideas become experiences.</title>
+<meta name="description" content="Ebenspiration is a multidisciplinary creative studio crafting brand identity, digital experiences, and sound for businesses and creators."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"/>
+<style>
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{font:inherit;border:none;background:none;cursor:pointer;}
+svg{display:block;}
+
+/* ============ TOKENS ============ */
+:root{
+    --background:#faf9f6;
+  --muted:#f1efe9;
+  --ink:#1a1a18;
+  --ink-muted:#78756d;
+  --primary:#2e59c6;
+  --primary-hover:#2e59c6;
+  --primary-foreground:#faf9f6;
+  --hairline:#e4e0d6;
+  --max:1280px;
+}
+
+body{
+  background:var(--background);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+.font-display{font-family:'Space Grotesk',sans-serif;}
+
+.wrap{
+  max-width:var(--max);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+@media(min-width:768px){ .wrap{ padding-inline:40px; } }
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:40px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  color:var(--ink-muted);
+}
+.eyebrow .rule{
+  height:1px;
+  flex:1;
+  background:var(--hairline);
+  max-width:64px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:500;
+  padding:14px 24px;
+  transition:transform .2s ease, background-color .2s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn svg{ width:16px; height:16px; transition:transform .3s ease; }
+.btn:hover svg{ transform:rotate(45deg); }
+
+.btn-dark{ background:var(--ink); color:var(--background); }
+.btn-outline{ background:var(--background); color:var(--ink); border:1px solid var(--hairline); }
+.btn-outline:hover{ background:var(--muted); }
+.btn-primary{ background:var(--primary); color:var(--primary-foreground); }
+.btn-primary:hover{ background:var(--primary-hover); }
+.btn-light{ background:var(--background); color:var(--ink); }
+.btn-sm{ padding:10px 20px; font-size:13px; }
+
+.section{
+  border-top:1px solid var(--hairline);
+  padding-block:96px;
+}
+@media(min-width:768px){ .section{ padding-block:128px; } }
+
+.section-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:56px;
+}
+
+h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacing:-0.01em; }
+
+.h2{ font-size:36px; line-height:1.05; max-width:640px; }
+@media(min-width:768px){ .h2{ font-size:60px; } }
+
+.text-muted-italic{ font-style:italic; font-weight:400; color:var(--ink-muted); }
+
+/* ============ HEADER ============ */
+.site-header{
+  position:fixed;
+  inset-inline:0;
+  top:0;
+  z-index:50;
+  background:transparent;
+  border-bottom:1px solid transparent;
+  transition:background-color .3s ease, border-color .3s ease;
+}
+.site-header.scrolled{
+  background:rgba(250,249,246,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom-color:var(--hairline);
+}
+.site-header .wrap{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{ font-size:17px; font-weight:600; letter-spacing:-0.01em; }
+.logo span{ color:var(--primary); }
+.nav{ display:none; align-items:center; gap:32px; }
+.nav a{ font-size:13px; color:var(--ink-muted); transition:color .2s ease; }
+.nav a:hover{ color:var(--ink); }
+@media(min-width:768px){ .nav{ display:flex; } }
+
+/* ============ HERO ============ */
+.hero{ position:relative; padding-top:160px; padding-bottom:96px; }
+@media(min-width:768px){ .hero{ padding-top:192px; padding-bottom:128px; } }
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px;
+}
+@media(min-width:768px){
+  .hero-grid{ grid-template-columns:repeat(12,1fr); gap:32px; align-items:start; }
+  .hero-copy{ grid-column:span 7; }
+  .hero-media{ grid-column:span 5; }
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--hairline);
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:12px;
+  color:var(--ink-muted);
+  margin-bottom:32px;
+}
+.dot{ width:6px; height:6px; border-radius:50%; background:var(--primary); }
+
+.hero h1{
+  font-size:44px;
+  line-height:1.02;
+  letter-spacing:-0.02em;
+}
+@media(min-width:640px){ .hero h1{ font-size:64px; } }
+@media(min-width:768px){ .hero h1{ font-size:88px; } }
+
+.hero p.lead{
+  margin-top:32px;
+  max-width:520px;
+  font-size:17px;
+  line-height:1.6;
+  color:var(--ink-muted);
+}
+
+.hero-actions{ margin-top:40px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+
+.stat-row{
+  margin-top:64px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  max-width:420px;
+  border-top:1px solid var(--hairline);
+  padding-top:32px;
+}
+.stat-num{ font-size:24px; }
+.stat-label{ margin-top:4px; font-size:12px; color:var(--ink-muted); }
+
+.hero-media .frame{
+  position:relative;
+  overflow:hidden;
+  border-radius:24px;
+  border:1px solid var(--hairline);
+  background:var(--muted);
+}
+.hero-media img{ width:100%; height:520px; object-fit:cover; }
+@media(min-width:768px){ .hero-media img{ height:640px; } }
+.hero-caption{
+  position:absolute;
+  bottom:16px; left:16px;
+  background:rgba(250,249,246,0.85);
+  backdrop-filter:blur(6px);
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:11px;
+  font-weight:500;
+}
+
+/* ============ MARQUEE ============ */
+.marquee-section{ border-top:1px solid var(--hairline); padding-block:40px; overflow:hidden; }
+.marquee-track{
+  display:flex;
+  gap:24px;
+  width:max-content;
+  animation:marquee 42s linear infinite;
+}
+.marquee-section:hover .marquee-track{ animation-play-state:paused; }
+@keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+.m-card{
+  position:relative;
+  flex-shrink:0;
+  width:288px; height:160px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--hairline);
+  background:var(--muted);
+}
+
+@media(min-width:768px){ .m-card{ width:384px; height:208px; } }
+.m-card img{ width:100%; height:100%; object-fit:cover; }
+.m-card::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.55), transparent 60%);
+}
+.m-card-label{
+  position:absolute; left:16px; right:16px; bottom:12px;
+  display:flex; align-items:center; justify-content:space-between;
+  color:#fff; z-index:1;
+}
+.m-card-label .name{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:18px;
+}
+.m-card-label .tag{ font-size:10px; text-transform:uppercase; letter-spacing:.2em; opacity:1;color: #fff; white-space:nowrap;
+  flex-shrink:0;}
+/*
+@media(max-width:767px){
+  .m-card-label .tag{
+    font-size:8px;
+    letter-spacing:.12em;
+  }
+  .m-card-label .name{
+    font-size:14px;
+  }
+} */
+
+/* ============ WHAT I BUILD ============ */
+.build-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+}
+@media(min-width:768px){ .build-grid{ grid-template-columns:1fr 1fr; } }
+
+.build-card{
+  border-radius:24px;
+  border:1px solid var(--hairline);
+  overflow:hidden;
+  background:var(--muted);
+}
+.build-card-link{
+  display:block;
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.build-card-link:hover{ transform:translateY(-4px); box-shadow:0 20px 50px -25px rgba(0,0,0,.2); }
+.card-cta{
+  margin-top:28px;
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:500;
+}
+.card-cta svg{ width:16px; height:16px; transition:transform .3s ease; }
+.build-card-link:hover .card-cta svg{ transform:rotate(45deg); }
+.build-card.dark{ background:var(--ink); color:var(--background); border-color:var(--ink); }
+.build-card .cover{ height:256px; overflow:hidden; }
+@media(min-width:768px){ .build-card .cover{ height:320px; } }
+.build-card .cover img{ width:100%; height:100%; object-fit:cover; transition:transform .9s ease; }
+.build-card:hover .cover img{ transform:scale(1.03); }
+.build-card .body{ padding:32px; }
+@media(min-width:768px){ .build-card .body{ padding:40px; } }
+.build-card .kicker{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; opacity:.6; }
+.build-card h3{ margin-top:12px; font-size:30px; }
+@media(min-width:768px){ .build-card h3{ font-size:36px; } }
+.tag-row{ margin-top:32px; display:flex; flex-wrap:wrap; gap:8px; }
+.tag{
+  border-radius:999px; border:1px solid var(--hairline);
+  padding:6px 12px; font-size:12px; color:var(--ink-muted);
+}
+.build-card.dark .tag{ border-color:rgba(255,255,255,.15); color:rgba(255,255,255,.85); }
+
+/* ============ WORK GRID ============ */
+.work-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:24px;
+}
+@media(min-width:768px){
+  .work-grid{ grid-template-columns:repeat(3,1fr); grid-auto-rows:280px; }
+  /* .work-grid .tall{ grid-row:span 2; } */
+}
+.work-card{
+  position:relative;
+  border-radius:24px;
+  overflow:hidden;
+  border:1px solid var(--hairline);
+  background:var(--muted);
+  min-height:220px;
+  display:block;
+}
+.work-card img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; transition:transform .9s ease; }
+.work-card:hover img{ transform:scale(1.04); }
+.work-card::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.6), transparent 55%);
+}
+.work-card-info{
+  position:absolute; left:20px; right:20px; bottom:20px;
+  display:flex; align-items:flex-end; justify-content:space-between;
+  color:#fff; z-index:1;
+}
+.work-card-info .meta{ font-size:11px; text-transform:uppercase; letter-spacing:.18em; opacity:.8; }
+.work-card-info .name{ font-family:'Space Grotesk',sans-serif; font-size:24px; margin-top:4px; }
+.work-arrow{
+  width:40px; height:40px; border-radius:50%;
+  background:var(--background); color:var(--ink);
+  display:grid; place-items:center;
+  transition:transform .5s ease;
+}
+.work-card:hover .work-arrow{ transform:translateY(-4px) rotate(45deg); }
+
+.all-projects{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:14px; font-weight:500; color:var(--ink-muted);
+}
+.all-projects:hover{ color:var(--ink); }
+.all-projects svg{ width:16px; height:16px; transition:transform .3s ease; }
+.all-projects:hover svg{ transform:rotate(45deg); }
+
+/* ============ ABOUT ============ */
+.about-grid{ display:grid; grid-template-columns:1fr; gap:48px; }
+@media(min-width:768px){
+  .about-grid{ grid-template-columns:repeat(12,1fr); gap:64px; align-items:start; }
+  .about-copy{ grid-column:span 7; }
+  .about-media{ grid-column:span 5; }
+}
+.about-copy h2{ font-size:36px; line-height:1.1; }
+@media(min-width:768px){ .about-copy h2{ font-size:60px; } }
+.about-copy .body{ margin-top:40px; max-width:640px; display:grid; gap:24px; font-size:16px; line-height:1.6; color:var(--ink-muted); }
+.about-facts{
+  margin-top:48px; max-width:480px;
+  display:grid; grid-template-columns:1fr 1fr; gap:32px;
+  border-top:1px solid var(--hairline); padding-top:32px;
+}
+.about-facts .label{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; color:var(--ink-muted); }
+.about-facts .value{ margin-top:8px; }
+.about-media img{ width:100%; height:520px; object-fit:cover; border-radius:24px; border:1px solid var(--hairline); }
+
+/* ============ SERVICES ============ */
+.services-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
+@media(min-width:640px){ .services-grid{ grid-template-columns:1fr 1fr; } }
+@media(min-width:1024px){ .services-grid{ grid-template-columns:repeat(3,1fr); } }
+
+.service-card{
+  border-radius:24px; border:1px solid var(--hairline);
+  background:var(--background); padding:32px;
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.service-card:hover{ transform:translateY(-4px); box-shadow:0 20px 50px -25px rgba(0,0,0,.15); }
+.service-icon-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; }
+.service-icon{
+  width:44px; height:44px; border-radius:16px;
+  background:var(--muted); color:var(--ink);
+  display:grid; place-items:center;
+  transition:background-color .4s ease, color .4s ease, transform .4s ease;
+}
+.service-card:hover .service-icon{ background:var(--primary); color:var(--primary-foreground); transform:rotate(6deg); }
+.service-icon svg{ width:20px; height:20px; }
+.service-num{ font-size:12px; color:var(--ink-muted); }
+.service-card h3{ font-size:24px; }
+.service-card p{ margin-top:12px; font-size:15px; line-height:1.6; color:var(--ink-muted); }
+
+.cta-card{
+  border-radius:24px; background:var(--ink); color:var(--background); padding:32px;
+}
+.cta-card .kicker{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; opacity:.6; }
+.cta-card h3{ margin-top:16px; font-size:24px; line-height:1.25; }
+.cta-card .btn{ margin-top:32px; }
+
+/* ============ IDEAS ============ */
+.ideas-head p{ max-width:360px; font-size:15px; color:var(--ink-muted); }
+.ideas-list{ border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline); }
+.ideas-list li{ border-top:1px solid var(--hairline); }
+.ideas-list li:first-child{ border-top:none; }
+.idea-row{
+  display:grid; grid-template-columns:auto 1fr auto;
+  align-items:center; gap:24px; padding-block:24px;
+}
+.idea-num{ font-size:12px; color:var(--ink-muted); }
+.idea-title{ font-family:'Space Grotesk',sans-serif; font-size:24px; transition:transform .5s ease; }
+@media(min-width:768px){ .idea-title{ font-size:30px; } }
+.idea-row:hover .idea-title{ transform:translateX(8px); }
+.idea-meta{ margin-top:4px; font-size:12px; color:var(--ink-muted); }
+.idea-read{ display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:500; color:var(--ink-muted); transition:color .2s ease; }
+.idea-row:hover .idea-read{ color:var(--ink); }
+.idea-read svg{ width:16px; height:16px; transition:transform .3s ease; }
+.idea-row:hover .idea-read svg{ transform:rotate(45deg); }
+
+/* ============ MUSIC ============ */
+.music-panel{
+  display:grid; grid-template-columns:1fr; gap:40px; align-items:center;
+  border-radius:24px; border:1px solid var(--hairline); background:var(--muted);
+  padding:24px;
+}
+@media(min-width:768px){
+  .music-panel{ grid-template-columns:repeat(12,1fr); gap:56px; padding:40px; }
+  .music-art{ grid-column:span 5; }
+  .music-copy{ grid-column:span 7; }
+}
+.music-art img{ width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:16px; }
+.music-copy .kicker{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; color:var(--ink-muted); }
+.music-copy h3{ margin-top:12px; font-size:36px; }
+@media(min-width:768px){ .music-copy h3{ font-size:60px; } }
+.music-copy p{ margin-top:16px; max-width:420px; font-size:15px; line-height:1.6; color:var(--ink-muted); }
+.music-actions{ margin-top:32px; display:flex; flex-wrap:wrap; gap:12px; }
+
+/* ============ TESTIMONIALS ============ */
+.testi-grid{ display:grid; grid-template-columns:1fr; gap:24px; }
+@media(min-width:768px){ .testi-grid{ grid-template-columns:repeat(3,1fr); } }
+.testi-card{
+  display:flex; flex-direction:column;
+  border-radius:24px; border:1px solid var(--hairline);
+  background:var(--background); padding:32px;
+  transition:transform .4s ease, box-shadow .4s ease;
+}
+.testi-card:hover{ transform:translateY(-4px); box-shadow:0 20px 50px -25px rgba(0,0,0,.15); }
+.testi-mark{ font-family:'Space Grotesk',sans-serif; font-size:36px; line-height:1; color:var(--primary); }
+.testi-quote{ margin-top:16px; font-size:16px; line-height:1.6; }
+.testi-foot{ margin-top:32px; border-top:1px solid var(--hairline); padding-top:20px; }
+.testi-name{ font-size:14px; font-weight:500; }
+.testi-role{ font-size:12px; color:var(--ink-muted); }
+
+/* ============ CONTACT ============ */
+.contact-section{ padding-block:112px; }
+@media(min-width:768px){ .contact-section{ padding-block:160px; } }
+.contact-section h2{ font-size:48px; line-height:1.02; }
+@media(min-width:768px){ .contact-section h2{ font-size:96px; } }
+.contact-actions{ margin-top:56px; display:flex; flex-wrap:wrap; gap:12px; }
+.contact-facts{
+  margin-top:64px; display:grid; grid-template-columns:1fr; gap:32px;
+  max-width:720px; border-top:1px solid var(--hairline); padding-top:32px;
+}
+@media(min-width:640px){ .contact-facts{ grid-template-columns:repeat(3,1fr); } }
+.contact-facts .label{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; color:var(--ink-muted); }
+.contact-facts .value{ margin-top:8px; display:block; }
+.contact-facts a.value:hover{ color:var(--primary); }
+
+/* ============ FOOTER ============ */
+.footer{ border-top:1px solid var(--hairline); background:var(--background); }
+.footer .wrap{ padding-block:64px; }
+.footer-grid{ display:grid; grid-template-columns:1fr; gap:48px; }
+@media(min-width:768px){ .footer-grid{ grid-template-columns:repeat(12,1fr); } }
+.footer-brand{ grid-column:span 6; }
+.footer-brand .logo{ font-size:24px; font-weight:600; }
+.footer-brand p{ margin-top:16px; max-width:360px; font-size:15px; line-height:1.6; color:var(--ink-muted); }
+.footer-col{ grid-column:span 3; }
+.footer-col .label{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; color:var(--ink-muted); }
+.footer-col ul{ margin-top:16px; display:grid; gap:8px; font-size:14px; }
+.footer-col.social ul{ grid-template-columns:1fr 1fr; }
+.footer-col a{ color:var(--ink-muted); }
+.footer-col a:hover{ color:var(--ink); }
+.footer-col a.social-link{ display:inline-flex; align-items:center; gap:8px; }
+.footer-col a.social-link svg{ width:14px; height:14px; }
+.footer-bottom{
+  margin-top:64px; padding-top:32px; border-top:1px solid var(--hairline);
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;
+  font-size:12px; color:var(--ink-muted);
+}
+.footer-bottom .status{ display:flex; align-items:center; gap:8px; }
+
+/* ============ MOTION ============ */
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:translateY(0);} }
+.fade-up{ animation:fadeUp .8s ease-out both; }
+@media (prefers-reduced-motion: reduce){
+  .marquee-track{ animation:none; }
+  .fade-up{ animation:none; }
+  * { transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="top">
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="wrap">
+    <a href="#top" class="logo font-display">ebenspiration<span>.</span></a>
+    <nav class="nav">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#ideas">Ideas</a>
+      <a href="#music">Music</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-dark btn-sm">
+      Start a project
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy fade-up">
+      <div class="pill"><span class="dot"></span>Creative studio · Available for new work</div>
+      <h1>Ideas become<br/><span class="text-muted-italic">experiences.</span></h1>
+      <p class="lead">Through branding, digital design, and sound, I help businesses and creators express what makes them different.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-dark">
+          View Work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-outline">Let's Talk</a>
+      </div>
+      <div class="stat-row">
+        <div><div class="stat-num font-display">40+</div><div class="stat-label">Projects</div></div>
+        <div><div class="stat-num font-display">7y</div><div class="stat-label">Practice</div></div>
+        <div><div class="stat-num font-display">3</div><div class="stat-label">Disciplines</div></div>
+      </div>
+    </div>
+    <div class="hero-media fade-up">
+      <div class="frame">
+        <img src="images/Eben pst 5.png" alt="Portrait of the founder of Ebenspiration"/>
+        <div class="hero-caption">EbenHaezer · Founder</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="marquee-section" aria-label="Featured works">
+  <div class="marquee-track" id="marquee-track"></div>
+</section>
+
+<!-- WHAT I BUILD -->
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>01</span><span class="rule"></span><span>What I Build</span></div>
+<div class="build-grid">
+  <a href="visual-experiences.html" class="build-card build-card-link">
+    <div class="cover"><img src="images/visual-experiences.jpeg" alt="Visual Experiences"/></div>
+    <div class="body">
+      <div class="kicker">Brands. Interfaces. Stories.</div>
+      <h3 class="font-display">Visual Experiences</h3>
+      <div class="tag-row">
+        <span class="tag">Brand Identity</span>
+        <span class="tag">UI/UX Design</span>
+        <span class="tag">Motion Design</span>
+        <span class="tag">Creative Direction</span>
+        <span class="tag">Visual Storytelling</span>
+        <span class="tag">Print Design</span>
+      </div>
+      <span class="card-cta">View visual work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </span>
+    </div>
+  </a>
+  <a href="sound-experiences.html" class="build-card build-card-link dark">
+    <div class="cover"><img src="images/sound-experiences.jpeg" alt="Sound Experiences"/></div>
+    <div class="body">
+      <div class="kicker">Music. Production. Worship.</div>
+      <h3 class="font-display">Sound Experiences</h3>
+      <div class="tag-row">
+        <span class="tag">Music Production</span>
+        <span class="tag">Sound Design</span>
+        <span class="tag">Mixing &amp; Mastering</span>
+        <span class="tag">Live Keys</span>
+        <span class="tag">Original Music</span>
+      </div>
+      <span class="card-cta">Listen to sound work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </span>
+    </div>
+  </a>
+</div>
+  </div>
+</section>
+
+<!-- SELECTED WORK -->
+<section id="work" class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>02</span><span class="rule"></span><span>Selected Experiences</span></div>
+    <div class="section-head">
+      <h2 class="h2 font-display">A small archive of work I'm proud of.</h2>
+      <a href="https://www.behance.net/ebenspiration" class="all-projects">All projects
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </a>
+    </div>
+    <div class="work-grid" id="work-grid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="wrap about-grid">
+    <div class="about-copy">
+      <div class="eyebrow"><span>03</span><span class="rule"></span><span>About</span></div>
+      <h2 class="font-display">I believe every meaningful idea deserves an equally<span class="text-muted-italic"> meaningful expression.</span></h2>
+      <div class="body">
+        <p>Whether through identity systems, digital experiences, or sound, my work is helping businesses communicate what words alone cannot.</p>
+        <p>Ebenspiration is a studio built around a large obsession with craft — a place where strategy, design, and music are treated as one continuous act of expression.</p>
+      </div>
+      <div class="about-facts">
+        <div><div class="label">Based in</div><div class="value">Nigeria · Working worldwide</div></div>
+        
+      </div>
+    </div>
+    <div class="about-media">
+      <img src="images/ebenstudio.png" alt="Working portrait"/>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>04</span><span class="rule"></span><span>Services</span></div>
+    <div class="section-head"><h2 class="h2 font-display">Five ways we help ideas take shape.</h2></div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon-row">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg></div>
+          <span class="service-num">01</span>
+        </div>
+        <h3 class="font-display">Brand Strategy</h3>
+        <p>Helping businesses discover what makes them different.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon-row">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/></svg></div>
+          <span class="service-num">02</span>
+        </div>
+        <h3 class="font-display">Visual Identity</h3>
+        <p>Design systems that communicate with clarity.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon-row">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></div>
+          <span class="service-num">03</span>
+        </div>
+        <h3 class="font-display">Digital Experiences</h3>
+        <p>Websites, interfaces, and interactive products.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon-row">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg></div>
+          <span class="service-num">04</span>
+        </div>
+        <h3 class="font-display">Sound</h3>
+        <p>Music production, sound design, and mixing.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon-row">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg></div>
+          <span class="service-num">05</span>
+        </div>
+        <h3 class="font-display">Creative Consulting</h3>
+        <p>Helping founders clarify ideas before execution.</p>
+      </div>
+      <div class="cta-card">
+        <div class="kicker">Have something specific?</div>
+        <h3 class="font-display">Let's design a scope that fits your idea.</h3>
+        <a href="#contact" class="btn btn-light btn-sm">Start a conversation
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IDEAS -->
+<section id="ideas" class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>05</span><span class="rule"></span><span>Ideas</span></div>
+    <div class="section-head ideas-head">
+      <h2 class="h2 font-display">A notebook, not a blog.</h2>
+      <p>Short essays and observations on brand, product, and the craft of making things worth remembering.</p>
+    </div>
+    <ul class="ideas-list">
+      <li><a href="#ideas" class="idea-row">
+        <span class="idea-num">01</span>
+        <div><div class="idea-title font-display">Why branding isn't decoration</div><div class="idea-meta">Essay · 6 min</div></div>
+        <span class="idea-read">Read<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
+      </a></li>
+      <li><a href="#ideas" class="idea-row">
+        <span class="idea-num">02</span>
+        <div><div class="idea-title font-display">Why users leave websites</div><div class="idea-meta">Notes · 4 min</div></div>
+        <span class="idea-read">Read<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
+      </a></li>
+      <li><a href="#ideas" class="idea-row">
+        <span class="idea-num">03</span>
+        <div><div class="idea-title font-display">Music communicates before words</div><div class="idea-meta">Essay · 5 min</div></div>
+        <span class="idea-read">Read<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
+      </a></li>
+      <li><a href="#ideas" class="idea-row">
+        <span class="idea-num">04</span>
+        <div><div class="idea-title font-display">Building trust through design</div><div class="idea-meta">Notes · 7 min</div></div>
+        <span class="idea-read">Read<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music" class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>06</span><span class="rule"></span><span>Latest Release</span></div>
+    <div class="music-panel">
+      <div class="music-art"><img src="images/Behold Cover.jpg" alt="Cover art for the single Behold — Sounds Of The Spirit"/></div>
+      <div class="music-copy">
+        <div class="kicker">New single</div>
+        <h3 class="font-display">Behold — Sounds Of The Spirit</h3>
+        <p>Worship Instrumental for Deep Prayer & Encounters.</p>
+        <div class="music-actions">
+          <a href="https://open.spotify.com/track/2imUZdFvbRIrTuY5QA4Gtm?si=d67109df7f3f4b8a" class="btn btn-outline btn-sm">Spotify<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          <a href="https://audiomack.com/ebenspiration/song/behold" class="btn btn-outline btn-sm">Audiomack<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          <a href="https://youtu.be/XfaVde2PfBk?si=ZYzqUx9WBqAsiG_N" class="btn btn-outline btn-sm">YouTube<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>07</span><span class="rule"></span><span>Kind Words</span></div>
+    <div class="testi-grid">
+      <figure class="testi-card">
+        <div class="testi-mark">"</div>
+        <blockquote class="testi-quote">Working with Ebenspiration transformed how we saw our own brand. Every decision felt intentional.</blockquote>
+        <figcaption class="testi-foot"><div class="testi-name">Amara Okafor</div><div class="testi-role">Founder, Northline Studio</div></figcaption>
+      </figure>
+      <figure class="testi-card">
+        <div class="testi-mark">"</div>
+        <blockquote class="testi-quote">The rare combination of strategic thinking and true craft. Our product finally speaks the way we do.</blockquote>
+        <figcaption class="testi-foot"><div class="testi-name">Daniel Wei</div><div class="testi-role">CEO, Meridian Labs</div></figcaption>
+      </figure>
+      <figure class="testi-card">
+        <div class="testi-mark">"</div>
+        <blockquote class="testi-quote">From identity to soundtrack, everything moved as one. A creative partner in the truest sense.</blockquote>
+        <figcaption class="testi-foot"><div class="testi-name">Ife Adebayo</div><div class="testi-role">Creative Director, Kindred</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section" style="border-top:1px solid var(--hairline);">
+  <div class="wrap">
+    <div class="eyebrow"><span>08</span><span class="rule"></span><span>Contact</span></div>
+    <h2 class="font-display">Have an idea?<br/><span class="text-muted-italic">Let's build it together.</span></h2>
+    <div class="contact-actions">
+      <a href="#contact" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>Book a Call
+      </a>
+      <a href="mailto:ebenezersopuru@gmail.com" class="btn btn-outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>Email
+      </a>
+      <a href="https://wa.me/2348105619954" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>WhatsApp
+      </a>
+    </div>
+    <div class="contact-facts">
+      <div><div class="label">Email</div><a href="mailto:ebenezersopuru@gmail.com" class="value">ebenezersopuru@gmail.com</a></div>
+      <div><div class="label">Studio</div><div class="value">Nigeria · Worldwide</div></div>
+      <div><div class="label">Response</div><div class="value">Within 24 hours</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo font-display">ebenspiration<span style="color:var(--primary);">.</span></div>
+        <p>Ideas. Design. Sound. For brands and creators.</p>
+      </div>
+      <div class="footer-col">
+        <div class="label">Navigate</div>
+        <ul>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#ideas">Ideas</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col social">
+        <div class="label">Elsewhere</div>
+        <ul>
+          <li><a href="http://instagram.com/ebenspiration" class="social-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>Instagram</a></li>
+          <li><a href="#" class="social-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a></li>
+          <li><a href="https://www.behance.net/ebenspiration" class="social-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>Behance</a></li>
+          <li><a href="https://github.com/ebenspiration" class="social-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>GitHub</a></li>
+          <li><a href="https://open.spotify.com/artist/6rfBIXS1lNRWd7J0hOyOpo?si=scl5po9ZRC-ig3zXXcchYw" class="social-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="18" r="4"/><path d="M12 18V2l7 4"/></svg>Spotify</a></li>
+          <li><a href="https://www.youtube.com/@ebenspiration" class="social-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>YouTube</a></li>
+          <li><a href="https://x.com/ebenspiration" class="social-link" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X </a></li>
+<li><a href="https://www.tiktok.com/@ebenspiration" class="social-link" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/></svg>
+  TikTok
+</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Ebenspiration. All rights reserved.</div>
+      <div class="status"><span class="dot"></span>Available for new work</div>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+  var header = document.getElementById('site-header');
+  function onScroll(){
+    if (window.scrollY > 10) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  }
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+ var ASSET = 'images/';
+
+var projects = [
+  { img: 'alarm.jpg', name: 'ALARM', tag: 'Brand Identity', year: '2025', tall: true, link: 'https://www.behance.net/gallery/xxxxxxx/GAMARA' },
+  { img: 'beehost.png', name: 'BeeHost', tag: 'Website Design', year: '2025', tall: false, link:'https://www.behance.net/gallery/237707141/BeeHost-Full-Web-Design-Multi-page-Website?platform=direct' },
+  { img: 'rrc.jpg', name: 'Regina Rachy Couture', tag: 'Brand Identity', year: '2023', tall: true,  },
+  { img: 'EKA.png', name: 'Ebenezer Kids Academy', tag: 'Brand Identity', year: '2024', tall: false, link:'https://www.behance.net/gallery/218179583/Logo-Presentation?platform=direct' },
+  { img: 'seter-horizontal.png', name: 'Seter (Secret Place)', tag: 'Album Artwork', year: '2025', tall: false,  },
+  { img: 'zeenneh__.png', name: 'ZeeNneh Synergy Limited', tag: 'Brand Identity', year: '2024', tall: false, link: 'https://www.behance.net/gallery/218174595/ZeeNeh-Synergy-Limited?platform=direct' }
+];
+
+  // Marquee (duplicate set for seamless loop)
+  var track = document.getElementById('marquee-track');
+  function marqueeCard(p){
+    var el = document.createElement('div');
+    el.className = 'm-card';
+    el.innerHTML =
+      '<img src="' + ASSET + p.img + '" alt="' + p.name + '"/>' +
+      '<div class="m-card-label"><span class="name font-display">' + p.name + '</span><span class="tag">' + p.tag + '</span></div>';
+    return el;
+  }
+  projects.concat(projects).forEach(function(p){ track.appendChild(marqueeCard(p)); });
+
+  // Work grid
+  var arrowSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
+  var grid = document.getElementById('work-grid');
+  projects.forEach(function(p){
+  var a = document.createElement('a');
+  a.href = p.link || '#work';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.className = 'work-card' + (p.tall ? ' tall' : '');
+  a.innerHTML =
+    '<img src="' + ASSET + p.img + '" alt="' + p.name + '"/>' +
+    '<div class="work-card-info">' +
+      '<div><div class="meta">' + p.tag + ' · ' + p.year + '</div><div class="name font-display">' + p.name + '</div></div>' +
+      '<div class="work-arrow">' + arrowSvg + '</div>' +
+    '</div>';
+  grid.appendChild(a);
+});
+</script>
+
+</body>
+</html>

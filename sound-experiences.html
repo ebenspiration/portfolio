@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sound Experiences — Ebenspiration</title>
+<meta name="description" content="Music production, sound design, and mixing work from Ebenspiration."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"/>
+<style>
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+button{font:inherit;border:none;background:none;cursor:pointer;}
+svg{display:block;}
+
+/* ============ TOKENS ============ */
+:root{
+  --background:#faf9f6;
+  --muted:#f1efe9;
+  --ink:#1a1a18;
+  --ink-muted:#78756d;
+  --primary:#2e59c6;
+  --primary-hover:#2e59c6;
+  --primary-foreground:#faf9f6;
+  --hairline:#e4e0d6;
+  --max:1280px;
+}
+
+body{
+  background:var(--background);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+.font-display{font-family:'Space Grotesk',sans-serif;}
+
+.wrap{
+  max-width:var(--max);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+@media(min-width:768px){ .wrap{ padding-inline:40px; } }
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:40px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  color:var(--ink-muted);
+}
+.eyebrow .rule{
+  height:1px;
+  flex:1;
+  background:var(--hairline);
+  max-width:64px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:500;
+  padding:14px 24px;
+  transition:transform .2s ease, background-color .2s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn svg{ width:16px; height:16px; transition:transform .3s ease; }
+.btn:hover svg{ transform:rotate(45deg); }
+
+.btn-dark{ background:var(--ink); color:var(--background); }
+.btn-outline{ background:var(--background); color:var(--ink); border:1px solid var(--hairline); }
+.btn-outline:hover{ background:var(--muted); }
+.btn-sm{ padding:10px 20px; font-size:13px; }
+
+.section{
+  border-top:1px solid var(--hairline);
+  padding-block:96px;
+}
+@media(min-width:768px){ .section{ padding-block:128px; } }
+
+h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacing:-0.01em; }
+
+/* ============ HEADER ============ */
+.site-header{
+  position:fixed;
+  inset-inline:0;
+  top:0;
+  z-index:50;
+  background:transparent;
+  border-bottom:1px solid transparent;
+  transition:background-color .3s ease, border-color .3s ease;
+}
+.site-header.scrolled{
+  background:rgba(250,249,246,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom-color:var(--hairline);
+}
+.site-header .wrap{
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{ font-size:17px; font-weight:600; letter-spacing:-0.01em; }
+.logo span{ color:var(--primary); }
+.nav{ display:none; align-items:center; gap:32px; }
+.nav a{ font-size:13px; color:var(--ink-muted); transition:color .2s ease; }
+.nav a:hover{ color:var(--ink); }
+@media(min-width:768px){ .nav{ display:flex; } }
+
+.dot{ width:6px; height:6px; border-radius:50%; background:var(--primary); }
+
+/* ============ PAGE HERO ============ */
+.page-hero{ padding-top:160px; padding-bottom:64px; background:var(--ink); color:var(--background); }
+@media(min-width:768px){ .page-hero{ padding-top:192px; padding-bottom:80px; } }
+.page-hero .eyebrow{ color:rgba(250,249,246,.6); }
+.page-hero .eyebrow .rule{ background:rgba(250,249,246,.2); }
+.back-link{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; color:var(--ink-muted); margin-bottom:32px;
+}
+.page-hero .back-link{ color:rgba(250,249,246,.6); }
+.page-hero .back-link:hover{ color:var(--background); }
+.back-link:hover{ color:var(--ink); }
+.back-link svg{ width:16px; height:16px; }
+.page-hero h1{ font-size:40px; line-height:1.05; }
+@media(min-width:768px){ .page-hero h1{ font-size:72px; } }
+.page-hero p.lead{ margin-top:24px; max-width:560px; font-size:17px; line-height:1.6; color:rgba(250,249,246,.7); }
+.text-muted-italic-light{ font-style:italic; font-weight:400; color:rgba(250,249,246,.6); }
+
+/* ============ MUSIC PANEL (latest release) ============ */
+.music-panel{
+  display:grid; grid-template-columns:1fr; gap:40px; align-items:center;
+  border-radius:24px; border:1px solid var(--hairline); background:var(--muted);
+  padding:24px;
+}
+@media(min-width:768px){
+  .music-panel{ grid-template-columns:repeat(12,1fr); gap:56px; padding:40px; }
+  .music-art{ grid-column:span 5; }
+  .music-copy{ grid-column:span 7; }
+}
+.music-art img{ width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:16px; }
+.music-copy .kicker{ font-size:12px; text-transform:uppercase; letter-spacing:.22em; color:var(--ink-muted); }
+.music-copy h3{ margin-top:12px; font-size:36px; }
+@media(min-width:768px){ .music-copy h3{ font-size:60px; } }
+.music-copy p{ margin-top:16px; max-width:420px; font-size:15px; line-height:1.6; color:var(--ink-muted); }
+.music-actions{ margin-top:32px; display:flex; flex-wrap:wrap; gap:12px; }
+
+/* ============ FILTER TABS ============ */
+.filter-tabs{
+  display:flex; flex-wrap:wrap; gap:8px;
+  margin-bottom:32px;
+}
+.filter-tab{
+  border:1px solid var(--hairline);
+  border-radius:999px;
+  padding:8px 18px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink-muted);
+  background:var(--background);
+  cursor:pointer;
+  transition:all .2s ease;
+}
+.filter-tab:hover{ color:var(--ink); border-color:var(--ink); }
+.filter-tab.active{
+  background:var(--ink);
+  color:var(--background);
+  border-color:var(--ink);
+}
+
+/* ============ TRACK LIST ============ */
+.track-list{ border-top:1px solid var(--hairline); }
+.track{
+  display:grid; grid-template-columns:64px 1fr auto; align-items:center; gap:20px;
+  padding-block:24px; border-bottom:1px solid var(--hairline);
+  transition:opacity .25s ease;
+}
+@media(max-width:640px){
+  .track{
+    grid-template-columns: 56px 1fr;
+    grid-template-areas:
+      "art info"
+      "actions actions";
+    row-gap:14px;
+    column-gap:14px;
+  }
+  .track-art{
+    grid-area: art;
+    width:56px; height:56px;
+  }
+  /* the middle (unnamed) div holding name/meta/category is always
+     the 2nd direct child of .track, in every track block */
+  .track > div:nth-child(2){
+    grid-area: info;
+    min-width:0;
+  }
+  .track-actions{
+    grid-area: actions;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .audio-player{
+    max-width: 100%;
+    width: 100%;
+  }
+  .platform-links{
+    flex-wrap: wrap;
+  }
+}
+.track.hidden{ display:none; }
+.track-art{ width:64px; height:64px; border-radius:12px; overflow:hidden; flex-shrink:0; }
+.track-art img{ width:100%; height:100%; object-fit:cover; }
+.track-name{ font-family:'Space Grotesk',sans-serif; font-size:20px;  overflow-wrap:break-word;}
+.track-meta{ margin-top:4px; font-size:12px; color:var(--ink-muted); }
+.track-category{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:var(--primary);
+  margin-top:2px;
+}
+
+/* ============ PLAY / PLATFORM TOGGLE ============ */
+.track-actions{ position:relative; display:flex; align-items:center; justify-content:flex-end; gap:10px; }
+.play-toggle.hidden{ display:none; }
+.platform-links{
+  display:none;
+  gap:8px;
+}
+.platform-links.open{ display:flex; }
+
+/* Colored monogram badges — real logos are error-prone as generic outline SVGs,
+   so each platform gets its own brand color + short label instead. */
+.platform-btn{
+  width:36px; height:36px;
+  display:grid; place-items:center;
+  transition:transform .2s ease, opacity .2s ease;
+}
+.platform-btn:hover{ transform:translateY(-2px); opacity:.85; }
+.platform-btn svg{ width:100%; height:100%; }
+
+/* Spotify + YouTube icons use fill="currentColor" — set the brand color here */
+.platform-spotify{ color:#1DB954; }
+.platform-youtube{ color:#FF0000; }
+
+/* Audiomack's icon has its own dark rounded background baked into the SVG,
+   so it just needs rounded corners on the wrapper to match */
+.platform-audiomack svg{ border-radius:9px; overflow:hidden; }
+
+
+/* ============ CUSTOM AUDIO PLAYER ============ */
+/* Compact version used inside each discography track row */
+.audio-player{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  max-width:220px;
+}
+.audio-play-btn{
+  width:38px; height:38px;
+  flex-shrink:0;
+  border-radius:50%;
+  background:var(--ink);
+  color:var(--background);
+  display:grid; place-items:center;
+  transition:transform .2s ease;
+}
+.audio-play-btn:hover{ transform:scale(1.05); }
+.audio-play-btn svg{ width:16px; height:16px; }
+
+.audio-progress-wrap{
+  flex:1;
+  height:3px;
+  background:var(--hairline);
+  border-radius:999px;
+  cursor:pointer;
+  position:relative;
+  min-width:60px;
+}
+.audio-progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--primary);
+  border-radius:999px;
+  transition:width .1s linear;
+}
+.audio-time{
+  font-size:11px;
+  color:var(--ink-muted);
+  min-width:30px;
+  text-align:right;
+  flex-shrink:0;
+}
+
+/* Larger version for the hero "Latest Release" panel */
+.audio-player.hero{
+  max-width:400px;
+  gap:14px;
+  margin-top:28px;
+}
+.audio-player.hero .audio-play-btn{
+  width:48px; height:48px;
+}
+.audio-player.hero .audio-play-btn svg{
+  width:20px; height:20px;
+}
+.audio-player.hero .audio-progress-wrap{
+  height:4px;
+}
+.audio-player.hero .audio-time{
+  font-size:12px;
+  min-width:36px;
+}
+
+/* ============ FOOTER ============ */
+.footer{ border-top:1px solid var(--hairline); background:var(--background); }
+.footer .wrap{ padding-block:32px; }
+.footer-bottom{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px;
+  font-size:12px; color:var(--ink-muted);
+}
+</style>
+</head>
+<body>
+
+<header class="site-header scrolled" id="site-header">
+  <div class="wrap">
+    <a href="index.html#top" class="logo font-display">ebenspiration<span>.</span></a>
+    <nav class="nav">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#ideas">Ideas</a>
+      <a href="index.html#music">Music</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <a href="index.html#contact" class="btn btn-dark btn-sm">
+      Start a project
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+    </a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <a href="index.html#top" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+      Back to home
+    </a>
+    <div class="eyebrow"><span>Sound</span><span class="rule"></span><span>Music. Production. Worship.</span></div>
+    <h1 class="font-display">Sound<br/><span class="text-muted-italic-light">experiences.</span></h1>
+    <p class="lead">Original production, sound design, and mixing — a closer listen to the studio's audio work.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:96px;border-top:none;">
+  <div class="wrap">
+    <div class="eyebrow"><span>01</span><span class="rule"></span><span>Latest Release</span></div>
+    <div class="music-panel">
+      <div class="music-art"><img src="images/Behold Cover.jpg" alt="Cover art for the single Behold — Sounds Of The Spirit"/></div>
+      <div class="music-copy">
+        <div class="kicker">New single</div>
+        <h3 class="font-display">Behold — Sounds Of The Spirit</h3>
+        <p>Worship Instrumental for Deep Prayer & Encounters.</p>
+
+        <div class="audio-player hero">
+          <button class="audio-play-btn" aria-label="Play Still — Live Keys">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+          </button>
+          <div class="audio-progress-wrap">
+            <div class="audio-progress-bar"></div>
+          </div>
+          <div class="audio-time">0:00</div>
+          <audio class="audio-el" src="audio/Behold.mp3" preload="none"></audio>
+        </div>
+
+        <div class="music-actions">
+          <a href="https://open.spotify.com/track/2imUZdFvbRIrTuY5QA4Gtm?si=d67109df7f3f4b8a" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Spotify<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          <a href="https://audiomack.com/ebenspiration/song/behold" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">Audiomack<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+          <a href="https://youtu.be/XfaVde2PfBk?si=ZYzqUx9WBqAsiG_N" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">YouTube<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="eyebrow"><span>02</span><span class="rule"></span><span>Discography</span></div>
+
+    <div class="filter-tabs" id="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="gospel">Gospel</button>
+      <button class="filter-tab" data-filter="soundtrack">Soundtrack</button>
+      <button class="filter-tab" data-filter="podcast">Podcast</button>
+    </div>
+
+    <!--
+      HOW TO ADD A NEW TRACK:
+      1. Copy one whole <div class="track" data-category="...">...</div> block below.
+      2. Set data-category to ONE of: gospel | soundtrack | podcast
+         (must be lowercase, must match a data-filter value in the tabs above)
+      3. Update the image, track name, meta text, and category label text.
+      4. If you have the audio file: point <audio class="audio-el" src="audio/your-file.mp3">
+         at the real file. If you DON'T have the file yet, delete the whole
+         <div class="audio-player">...</div> block for that track.
+      5. Update each platform link's href to the real URL for that track.
+      6. Delete any platform <a> the track ISN'T on (e.g. no Apple Music yet? remove that one <a>).
+
+      Adding a whole NEW category (e.g. "Worship"):
+      1. Add a new button in #filter-tabs: <button class="filter-tab" data-filter="worship">Worship</button>
+      2. Use data-category="worship" on any track that belongs to it.
+      That's it — the JS filtering already reads whatever categories exist, nothing else to touch.
+    -->
+    <div class="track-list" id="track-list">
+
+      <div class="track" data-category="gospel">
+        <div class="track-art"><img src="images/Behold Cover.jpg" alt="Behold — Sounds Of The Spirit"/></div>
+        <div>
+          <div class="track-name font-display">Behold — Sounds Of The Spirit</div>
+          <div class="track-meta">Single · 2025</div>
+          <div class="track-category">Gospel</div>
+        </div>
+        <div class="track-actions">
+          <div class="audio-player">
+            <button class="audio-play-btn" aria-label="Play Still — Live Keys">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <div class="audio-progress-wrap">
+              <div class="audio-progress-bar"></div>
+            </div>
+            <div class="audio-time">0:00</div>
+            <audio class="audio-el" src="audio/behold.mp3" preload="none"></audio>
+          </div>
+          <button class="btn btn-outline btn-sm play-toggle">Links</button>
+          <div class="platform-links">
+            <a href="https://open.spotify.com/track/2imUZdFvbRIrTuY5QA4Gtm?si=d67109df7f3f4b8a" target="_blank" rel="noopener noreferrer" class="platform-btn platform-spotify" title="Spotify" aria-label="Listen on Spotify">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288"/></svg>
+             </a>
+            <a href="https://audiomack.com/ebenspiration/song/behold" target="_blank" rel="noopener noreferrer" class="platform-btn platform-audiomack" title="Audiomack" aria-label="Listen on Audiomack">
+             <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+             <rect width="220" height="220" rx="24" fill="black"/>
+            <path d="M21.51 104.947C21.51 104.947 25.6187 104.273 27.3113 106.039C29.0054 107.807 27.8952 111.465 25.6467 111.527C23.3983 111.603 21.3204 112.005 19.8455 110.436C18.3698 108.869 18.7656 105.72 21.51 104.947ZM66.1076 129.916C65.7117 129.991 65.2924 129.779 64.8639 129.468C61.9185 125.363 60.8546 111.327 59.5025 110.491C58.0996 109.623 53.0225 118.268 42.9238 117.339C38.7007 116.952 34.4032 114.214 31.8726 112.318C32.1077 109.129 32.1487 101.681 38.439 104.103C42.2595 105.574 48.8032 109.613 54.5498 102.359C60.9031 94.3369 64.4074 96.6672 66.5087 98.4114C68.6101 100.156 67.2102 109.224 70.3444 106.689C73.4786 104.154 86.1329 88.4113 86.1329 88.4113C86.1329 88.4113 95.9305 78.5302 97.4305 88.9193C98.9312 99.307 105.319 110.818 107.012 110.49C108.706 110.164 128.414 70.1066 131.237 67.523C134.059 64.9378 143.561 65.2776 143.11 71.9069C142.658 78.5362 141.691 119.743 141.691 119.743C141.691 119.743 140.577 131.353 142.392 125.148C143.144 122.576 143.954 120.254 144.964 117.546C149.828 101.975 158.114 75.3732 162.242 61.6664C163.192 58.3866 164.009 55.5717 164.643 53.4074C164.849 52.5606 165.096 51.7182 165.382 50.895C165.727 49.7332 165.96 48.9643 166.032 48.7618C166.217 48.2462 166.734 47.8579 167.461 47.5712C168.191 47.1087 168.974 47.0859 169.861 47.0632C172.152 46.8584 175.099 47.1542 177.749 47.9117C178.521 47.9117 179.36 48.1923 180.154 48.7595C180.154 48.7595 180.202 48.7603 180.268 48.8361C180.286 48.8361 180.305 48.8361 180.324 48.912C180.49 49.0257 180.758 49.2532 181.069 49.6324C181.078 49.6324 181.088 49.6324 181.1 49.7082C181.229 49.8675 181.358 50.0495 181.49 50.2618C182.97 52.4329 183.879 56.4346 182.967 63.5311C180.695 81.2412 178.936 117.674 178.936 117.674C178.936 117.674 178.587 119.416 182.237 111.744C182.364 111.478 182.528 111.243 182.677 111C182.874 110.872 183.096 110.682 183.369 110.356C185.625 107.667 191.687 106.087 195.891 106.12C197.662 106.332 199.146 106.78 200.033 107.34C201.692 109.865 200.713 119.185 200.713 119.185C197.216 119.511 190.549 121.39 188.186 121.738C185.822 122.087 182.232 137.434 177.241 135.865C172.251 134.296 161.13 127.32 161.13 126.361C161.13 125.525 162.003 115.33 162.232 112.698C162.248 112.516 162.262 112.35 162.276 112.183C162.277 112.147 162.281 112.112 162.286 112.077C162.448 110.004 162.302 109.101 161.345 111.17C160.522 112.949 156.939 124.333 152.944 136.732C152.523 137.816 144.973 160.664 143.982 163.449C142.799 166.68 141.806 169.154 141.119 170.433C140.074 171.849 138.666 172.736 136.701 172.141C131.798 170.659 125.588 163.884 125.531 162.202C125.413 152.721 125.992 101.74 123.693 105.989C121.335 110.345 102.991 140.575 102.991 140.575C102.683 140.651 102.456 140.651 102.185 140.651C100.887 140.507 98.8744 140.09 98.3177 138.843C98.2874 138.768 98.2465 138.707 98.2199 138.631C98.1934 138.555 98.163 138.464 98.1175 138.328C97.8681 137.496 97.7664 136.592 97.5465 135.852C96.726 133.082 95.4133 129.113 94.0354 125.076C91.9242 118.191 89.7478 111.148 89.3891 110.371C88.6892 108.849 87.6692 109.491 86.7539 110.37C82.6589 113.843 73.9624 129.171 66.1083 130.009" fill="#FFA200"/>
+            </svg>
+            </a>
+            <a href="https://youtu.be/XfaVde2PfBk?si=ZYzqUx9WBqAsiG_N" target="_blank" rel="noopener noreferrer" class="platform-btn platform-youtube" title="YouTube" aria-label="Listen on YouTube">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg> </a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="track" data-category="gospel">
+        <div class="track-art"><img src="images/Seter.png" alt="Seter (Secret Place) cover"/></div>
+        <div>
+          <div class="track-name font-display">Seter (Secret Place)</div>
+          <div class="track-meta">Single · 2025</div>
+          <div class="track-category">Gospel</div>
+        </div>
+        <div class="track-actions">
+          <div class="audio-player">
+            <button class="audio-play-btn" aria-label="Play Still — Live Keys">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <div class="audio-progress-wrap">
+              <div class="audio-progress-bar"></div>
+            </div>
+            <div class="audio-time">0:00</div>
+            <audio class="audio-el" src="audio/seter.mp3" preload="none"></audio>
+          </div>
+          <button class="btn btn-outline btn-sm play-toggle">Links</button>
+          <div class="platform-links">
+            <!-- <a href="https://open.spotify.com/track/2imUZdFvbRIrTuY5QA4Gtm?si=d67109df7f3f4b8a" target="_blank" rel="noopener noreferrer" class="platform-btn platform-spotify" title="Spotify" aria-label="Listen on Spotify">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288"/></svg>
+             </a> -->
+            <a href="https://audiomack.com/ebenspiration/song/seter-secret-place" target="_blank" rel="noopener noreferrer" class="platform-btn platform-audiomack" title="Audiomack" aria-label="Listen on Audiomack">
+             <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="220" height="220" rx="24" fill="black"/>
+            <path d="M21.51 104.947C21.51 104.947 25.6187 104.273 27.3113 106.039C29.0054 107.807 27.8952 111.465 25.6467 111.527C23.3983 111.603 21.3204 112.005 19.8455 110.436C18.3698 108.869 18.7656 105.72 21.51 104.947ZM66.1076 129.916C65.7117 129.991 65.2924 129.779 64.8639 129.468C61.9185 125.363 60.8546 111.327 59.5025 110.491C58.0996 109.623 53.0225 118.268 42.9238 117.339C38.7007 116.952 34.4032 114.214 31.8726 112.318C32.1077 109.129 32.1487 101.681 38.439 104.103C42.2595 105.574 48.8032 109.613 54.5498 102.359C60.9031 94.3369 64.4074 96.6672 66.5087 98.4114C68.6101 100.156 67.2102 109.224 70.3444 106.689C73.4786 104.154 86.1329 88.4113 86.1329 88.4113C86.1329 88.4113 95.9305 78.5302 97.4305 88.9193C98.9312 99.307 105.319 110.818 107.012 110.49C108.706 110.164 128.414 70.1066 131.237 67.523C134.059 64.9378 143.561 65.2776 143.11 71.9069C142.658 78.5362 141.691 119.743 141.691 119.743C141.691 119.743 140.577 131.353 142.392 125.148C143.144 122.576 143.954 120.254 144.964 117.546C149.828 101.975 158.114 75.3732 162.242 61.6664C163.192 58.3866 164.009 55.5717 164.643 53.4074C164.849 52.5606 165.096 51.7182 165.382 50.895C165.727 49.7332 165.96 48.9643 166.032 48.7618C166.217 48.2462 166.734 47.8579 167.461 47.5712C168.191 47.1087 168.974 47.0859 169.861 47.0632C172.152 46.8584 175.099 47.1542 177.749 47.9117C178.521 47.9117 179.36 48.1923 180.154 48.7595C180.154 48.7595 180.202 48.7603 180.268 48.8361C180.286 48.8361 180.305 48.8361 180.324 48.912C180.49 49.0257 180.758 49.2532 181.069 49.6324C181.078 49.6324 181.088 49.6324 181.1 49.7082C181.229 49.8675 181.358 50.0495 181.49 50.2618C182.97 52.4329 183.879 56.4346 182.967 63.5311C180.695 81.2412 178.936 117.674 178.936 117.674C178.936 117.674 178.587 119.416 182.237 111.744C182.364 111.478 182.528 111.243 182.677 111C182.874 110.872 183.096 110.682 183.369 110.356C185.625 107.667 191.687 106.087 195.891 106.12C197.662 106.332 199.146 106.78 200.033 107.34C201.692 109.865 200.713 119.185 200.713 119.185C197.216 119.511 190.549 121.39 188.186 121.738C185.822 122.087 182.232 137.434 177.241 135.865C172.251 134.296 161.13 127.32 161.13 126.361C161.13 125.525 162.003 115.33 162.232 112.698C162.248 112.516 162.262 112.35 162.276 112.183C162.277 112.147 162.281 112.112 162.286 112.077C162.448 110.004 162.302 109.101 161.345 111.17C160.522 112.949 156.939 124.333 152.944 136.732C152.523 137.816 144.973 160.664 143.982 163.449C142.799 166.68 141.806 169.154 141.119 170.433C140.074 171.849 138.666 172.736 136.701 172.141C131.798 170.659 125.588 163.884 125.531 162.202C125.413 152.721 125.992 101.74 123.693 105.989C121.335 110.345 102.991 140.575 102.991 140.575C102.683 140.651 102.456 140.651 102.185 140.651C100.887 140.507 98.8744 140.09 98.3177 138.843C98.2874 138.768 98.2465 138.707 98.2199 138.631C98.1934 138.555 98.163 138.464 98.1175 138.328C97.8681 137.496 97.7664 136.592 97.5465 135.852C96.726 133.082 95.4133 129.113 94.0354 125.076C91.9242 118.191 89.7478 111.148 89.3891 110.371C88.6892 108.849 87.6692 109.491 86.7539 110.37C82.6589 113.843 73.9624 129.171 66.1083 130.009" fill="#FFA200"/> </svg> </a>
+            <a href="https://youtu.be/mX_fwu9ACls?si=FAUVOp_9oc0LY2f_" target="_blank" rel="noopener noreferrer" class="platform-btn platform-youtube" title="YouTube" aria-label="Listen on YouTube">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg> </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="track" data-category="soundtrack">
+        <div class="track-art"><img src="images/Eben sounds.png" alt="Ogige Anyi Cover"/></div>
+        <div>
+          <div class="track-name font-display">Ogige Anyi</div>
+          <div class="track-meta">Single · 2026</div>
+          <div class="track-category">Soundtrack</div>
+        </div>
+        <div class="track-actions">
+          <!-- No local audio file for this one yet — platform links only.
+               To add playback: paste in an .audio-player block like the one above,
+               pointing src at audio/ascend.mp3 -->
+                <div class="audio-player">
+            <button class="audio-play-btn" aria-label="Play Still — Live Keys">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <div class="audio-progress-wrap">
+              <div class="audio-progress-bar"></div>
+            </div>
+            <div class="audio-time">0:00</div>
+            <audio class="audio-el" src="audio/Ogige soundtrack.mp3" preload="none"></audio>
+          </div>
+
+          <button class="btn btn-outline btn-sm play-toggle">Links</button>
+          <div class="platform-links">
+            <a href="https://open.spotify.com/album/xxxxx" target="_blank" rel="noopener noreferrer" class="platform-btn platform-spotify" title="Spotify" aria-label="Listen on Spotify">SP</a>
+            <a href="https://audiomack.com/xxxxx" target="_blank" rel="noopener noreferrer" class="platform-btn platform-audiomack" title="Audiomack" aria-label="Listen on Audiomack">AM</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="track" data-category="soundtrack">
+        <div class="track-art"><img src="images/Ije Ndu new.png" alt="Ije Ndu Cover"/></div>
+        <div>
+          <div class="track-name font-display">Ije Ndu</div>
+          <div class="track-meta">Single · 2024</div>
+          <div class="track-category">Soundtrack</div>
+        </div>
+        <div class="track-actions">
+          <!-- No local audio file for this one yet — platform links only.
+               To add playback: paste in an .audio-player block like the one above,
+               pointing src at audio/ascend.mp3 -->
+                <div class="audio-player">
+            <button class="audio-play-btn" aria-label="Play Still — Live Keys">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <div class="audio-progress-wrap">
+              <div class="audio-progress-bar"></div>
+            </div>
+            <div class="audio-time">0:00</div>
+            <audio class="audio-el" src="audio/Ije Ndu Track.mp3" preload="none"></audio>
+          </div>
+
+          <button class="btn btn-outline btn-sm play-toggle">Links</button>
+          <div class="platform-links">
+            <a href="https://open.spotify.com/album/xxxxx" target="_blank" rel="noopener noreferrer" class="platform-btn platform-spotify" title="Spotify" aria-label="Listen on Spotify">SP</a>
+            <a href="https://audiomack.com/xxxxx" target="_blank" rel="noopener noreferrer" class="platform-btn platform-audiomack" title="Audiomack" aria-label="Listen on Audiomack">AM</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="track" data-category="podcast">
+        <div class="track-art"><img src="images/podcast-ep1.jpg" alt="Studio Sessions Episode 1 cover"/></div>
+        <div>
+          <div class="track-name font-display">Studio Sessions Ep. 1</div>
+          <div class="track-meta">Podcast · 2025</div>
+          <div class="track-category">Podcast</div>
+        </div>
+        <div class="track-actions">
+          <button class="btn btn-outline btn-sm play-toggle">Links</button>
+          <div class="platform-links">
+            <a href="https://www.youtube.com/@ebenspiration" target="_blank" rel="noopener noreferrer" class="platform-btn platform-youtube" title="YouTube" aria-label="Listen on YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z" fill="#fff"/></svg>
+            </a>
+            <a href="https://open.spotify.com/show/xxxxx" target="_blank" rel="noopener noreferrer" class="platform-btn platform-spotify" title="Spotify" aria-label="Listen on Spotify">SP</a>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <div>© 2026 Ebenspiration. All rights reserved.</div>
+      <a href="index.html#top" class="back-link" style="margin-bottom:0;">Back to home</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header stays in "scrolled" state (solid bg) on this subpage — matches original behavior
+  var header = document.getElementById('site-header');
+  header.classList.add('scrolled');
+
+  // ===== Category filter tabs =====
+  var tabs = document.querySelectorAll('.filter-tab');
+  var tracks = document.querySelectorAll('.track');
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+
+      var filter = tab.getAttribute('data-filter');
+      tracks.forEach(function(track){
+        var match = filter === 'all' || track.getAttribute('data-category') === filter;
+        track.classList.toggle('hidden', !match);
+      });
+    });
+  });
+
+  // ===== "Links" button -> platform icons toggle =====
+  document.querySelectorAll('.play-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var actions = btn.closest('.track-actions');
+      var links = actions.querySelector('.platform-links');
+      btn.classList.add('hidden');
+      links.classList.add('open');
+    });
+  });
+
+  // Click outside a track's actions to collapse it back to "Links"
+  document.addEventListener('click', function(e){
+    document.querySelectorAll('.track-actions').forEach(function(actions){
+      if (!actions.contains(e.target)) {
+        var btn = actions.querySelector('.play-toggle');
+        var links = actions.querySelector('.platform-links');
+        if (links && links.classList.contains('open')) {
+          links.classList.remove('open');
+          btn.classList.remove('hidden');
+        }
+      }
+    });
+  });
+
+  // ===== Custom audio players (works for any number of .audio-player instances) =====
+  document.querySelectorAll('.audio-player').forEach(function(player){
+    var audio = player.querySelector('.audio-el');
+    var playBtn = player.querySelector('.audio-play-btn');
+    var iconPlay = playBtn.querySelector('.icon-play');
+    var iconPause = playBtn.querySelector('.icon-pause');
+    var progressWrap = player.querySelector('.audio-progress-wrap');
+    var progressBar = player.querySelector('.audio-progress-bar');
+    var timeLabel = player.querySelector('.audio-time');
+
+    function formatTime(sec){
+      if (isNaN(sec)) return '0:00';
+      var m = Math.floor(sec / 60);
+      var s = Math.floor(sec % 60);
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function resetIcon(){
+      iconPlay.style.display = 'block';
+      iconPause.style.display = 'none';
+    }
+
+    playBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      if (audio.paused) {
+        // pause every other track first, so only one plays at a time
+        document.querySelectorAll('.audio-el').forEach(function(a){
+          if (a !== audio) a.pause();
+        });
+        document.querySelectorAll('.audio-play-btn').forEach(function(b){
+          if (b !== playBtn) {
+            b.querySelector('.icon-play').style.display = 'block';
+            b.querySelector('.icon-pause').style.display = 'none';
+          }
+        });
+
+        audio.play();
+        iconPlay.style.display = 'none';
+        iconPause.style.display = 'block';
+      } else {
+        audio.pause();
+        resetIcon();
+      }
+    });
+
+    audio.addEventListener('timeupdate', function(){
+      var pct = (audio.currentTime / audio.duration) * 100 || 0;
+      progressBar.style.width = pct + '%';
+      timeLabel.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener('ended', function(){
+      resetIcon();
+      progressBar.style.width = '0%';
+      timeLabel.textContent = '0:00';
+    });
+
+    progressWrap.addEventListener('click', function(e){
+      e.stopPropagation();
+      var rect = progressWrap.getBoundingClientRect();
+      var clickX = e.clientX - rect.left;
+      var pct = clickX / rect.width;
+      audio.currentTime = pct * audio.duration;
+    });
+  });
+</script>
+
+</body>
+</html>
