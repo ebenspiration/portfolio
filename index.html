@@ -247,7 +247,7 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
 }
 .m-card-label{
   position:absolute; left:16px; right:16px; bottom:12px;
-  display:flex; align-items:center; justify-content:space-between;
+  display:none; align-items:center; justify-content:space-between;
   color:#fff; z-index:1;
 }
 .m-card-label .name{
@@ -256,6 +256,7 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
 }
 .m-card-label .tag{ font-size:10px; text-transform:uppercase; letter-spacing:.2em; opacity:1;color: #fff; white-space:nowrap;
   flex-shrink:0;}
+  .m-card::after{ display:none; }
 /*
 @media(max-width:767px){
   .m-card-label .tag{
