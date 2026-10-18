@@ -507,6 +507,65 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
   .fade-up{ animation:none; }
   * { transition-duration: 0.01ms !important; }
 }
+
+/* ============ THEME TOGGLE ============ */
+.theme-toggle{
+  width:40px;height:40px;flex:0 0 40px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid var(--hairline);border-radius:50%;
+  color:var(--ink);background:var(--background);
+  transition:background-color .2s ease,border-color .2s ease,transform .2s ease;
+}
+.theme-toggle:hover{transform:translateY(-1px);background:var(--muted);}
+.theme-toggle svg{width:18px;height:18px;}
+.theme-toggle .theme-label{display:none;}
+[data-theme="dark"]{
+  color-scheme:dark;
+  --background:#111210;
+  --muted:#1c1d1a;
+  --ink:#a3b8ff;
+  --ink-muted:#aaa79f;
+  --hairline:#34352f;
+  --primary:#8ba7ff;
+  --primary-hover:#a3b8ff;
+  --primary-foreground:#111210;
+  --letter:#ffffff;
+}
+[data-theme="dark"] .site-header.scrolled{background:rgba(17,18,16,.88);}
+[data-theme="dark"] .page-hero,
+[data-theme="dark"] .build-card.dark,
+[data-theme="dark"] .cta-card{background:#1b1c19;color:#f2f0e9;border-color:#34352f;}
+[data-theme="dark"] .card-cta{color:#f2f0e9;}
+[data-theme="dark"] .page-hero .eyebrow{color:rgba(242,240,233,.65);}
+[data-theme="dark"] .page-hero .eyebrow .rule{background:rgba(242,240,233,.2);}
+[data-theme="dark"] .page-hero p.lead{color:rgba(242,240,233,.72);}
+[data-theme="dark"] .hero-caption{background:rgba(28,29,26,.88);color:#f2f0e9;}
+[data-theme="dark"] .card-cta{color: #dae2ff;}
+[data-theme="dark"] .btn-outline {color: #e4e0d6;}
+[data-theme="dark"] .kicker{color: #aaa79f;}
+[data-theme="dark"] .font-display{color: var(--ink);}
+[data-theme="dark"] .start-convo{color: #e4e0d6;}
+[data-theme="dark"] .start-convo:hover{background:#2e59c6}
+[data-theme="dark"] .testi-quote{color: #c3c3c3;}
+[data-theme="dark"] .call:hover {background:#c3c3c3;}
+[data-theme="dark"] .val{color: #d4e0ff;}
+[data-theme="dark"] .view-project{background:#1c1d1a;color:var(--ink);border-color:var(--hairline);}
+[data-theme="dark"] .btn-outline:hover{background: #e4e0d6;color: #1a1a18;}
+[data-theme="dark"] .view-project:hover{background:var(--ink);color:var(--background);border-color:var(--ink);}
+[data-theme="dark"] .filter-tab.active{background:#f2f0e9;color:#111210;border-color:#f2f0e9;}
+[data-theme="dark"] .audio-play-btn{background:#f2f0e9;color:#111210;}
+[data-theme="dark"] .work-arrow{background:#f2f0e9;color:#111210;}
+[data-theme="dark"] .footer{background:var(--background);}
+[data-theme="dark"] .platform-audiomack svg{border:1px solid rgba(255,255,255,.1);}
+html{color-scheme:light;}
+html[data-theme="dark"]{color-scheme:dark;}
+@media(max-width:767px){
+  .theme-toggle{width:38px;height:38px;flex-basis:38px;}
+  .site-header .wrap{gap:10px;}
+  .site-header .logo{font-size:15px;}
+  .site-header .btn-sm{padding:9px 12px;font-size:12px;}
+}
+@media(prefers-reduced-motion:reduce){.theme-toggle{transition:none;}}
 </style>
 </head>
 <body>
@@ -525,6 +584,7 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"></button>
     <a href="#contact" class="btn btn-dark btn-sm">
       Start a project
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
@@ -694,7 +754,7 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
       <div class="cta-card">
         <div class="kicker">Have something specific?</div>
         <h3 class="font-display">Let's design a scope that fits your idea.</h3>
-        <a href="#contact" class="btn btn-light btn-sm">Start a conversation
+        <a href="#contact" class="btn btn-light btn-sm start-convo">Start a conversation
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
         </a>
       </div>
@@ -787,7 +847,7 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
     <div class="eyebrow"><span>07</span><span class="rule"></span><span>Contact</span></div>
     <h2 class="font-display">Have an idea?<br/><span class="text-muted-italic">Let's build it together.</span></h2>
     <div class="contact-actions">
-      <a href="https://calendar.app.google/edGgiUM47SNehfkMA" class="btn btn-primary">
+      <a href="https://calendar.app.google/edGgiUM47SNehfkMA" class="btn btn-primary call">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>Book a Call
       </a>
       <a href="mailto:ebenezersopuru@gmail.com" class="btn btn-outline">
@@ -799,8 +859,8 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
     </div>
     <div class="contact-facts">
       <div><div class="label">Email</div><a href="mailto:ebenezersopuru@gmail.com" class="value">ebenezersopuru@gmail.com</a></div>
-      <div><div class="label">Studio</div><div class="value">Nigeria · Worldwide</div></div>
-      <div><div class="label">Response</div><div class="value">Within 24 hours</div></div>
+      <div><div class="label">Studio</div><div class="value val">Nigeria · Worldwide</div></div>
+      <div><div class="label">Response</div><div class="value val">Within 24 hours</div></div>
     </div>
   </div>
 </section>
@@ -900,6 +960,39 @@ var projects = [
     '</div>';
   grid.appendChild(a);
 });
+</script>
+
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var key = 'ebenspiration-theme';
+  var saved = null;
+  try { saved = localStorage.getItem(key); } catch(e) {}
+  if(saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  function updateButton(button){
+    var dark = root.getAttribute('data-theme') === 'dark';
+    button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    button.setAttribute('title', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    button.setAttribute('aria-pressed', String(dark));
+    button.innerHTML = dark
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z"/></svg>';
+  }
+  function setup(){
+    document.querySelectorAll('.theme-toggle').forEach(function(button){
+      updateButton(button);
+      button.addEventListener('click', function(){
+        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem(key, next); } catch(e) {}
+        document.querySelectorAll('.theme-toggle').forEach(updateButton);
+      });
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
+  else setup();
+})();
 </script>
 
 </body>
