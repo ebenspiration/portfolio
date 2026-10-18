@@ -377,6 +377,9 @@ h1,h2,h3{ font-family:'Space Grotesk',sans-serif; font-weight:500; letter-spacin
 [data-theme="dark"] .work-arrow{background:#f2f0e9;color:#111210;}
 [data-theme="dark"] .footer{background:var(--background);}
 [data-theme="dark"] .platform-audiomack svg{border:1px solid rgba(255,255,255,.1);}
+[data-theme="dark"] .mobile-nav a {color: #f2f5ff;}
+[data-theme="dark"] .mobile-nav a{ font-size:16px; }
+
 html{color-scheme:light;}
 html[data-theme="dark"]{color-scheme:dark;}
 @media(max-width:767px){
@@ -386,6 +389,76 @@ html[data-theme="dark"]{color-scheme:dark;}
   .site-header .btn-sm{padding:9px 12px;font-size:12px;}
 }
 @media(prefers-reduced-motion:reduce){.theme-toggle{transition:none;}}
+
+/* ============ MOBILE MENU (hamburger) ============ */
+.menu-toggle{
+  display:none;
+  width:40px;height:40px;flex:0 0 40px;
+  flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  border:1px solid var(--hairline);border-radius:50%;
+  color:var(--ink);background:var(--background);
+  transition:background-color .2s ease,border-color .2s ease;
+}
+.menu-toggle:hover{background:var(--muted);}
+.menu-bar{
+  display:block;width:16px;height:1.5px;border-radius:2px;
+  background:currentColor;
+  transition:transform .25s ease,opacity .2s ease;
+}
+.site-header.menu-open .menu-bar:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.site-header.menu-open .menu-bar:nth-child(2){opacity:0;}
+.site-header.menu-open .menu-bar:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+.mobile-menu{
+  display:none;
+  position:absolute;top:100%;left:0;right:0;
+  padding:4px 24px 28px;
+  background:var(--background);
+  border-bottom:1px solid var(--hairline);
+  box-shadow:0 28px 40px -28px rgba(0,0,0,.35);
+  max-height:calc(100vh - 64px);
+  max-height:calc(100dvh - 64px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  visibility:hidden;opacity:0;transform:translateY(-8px);pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease,visibility 0s linear .25s;
+}
+.site-header.menu-open .mobile-menu{
+  visibility:visible;opacity:1;transform:none;pointer-events:auto;
+  transition:opacity .25s ease,transform .25s ease,visibility 0s;
+}
+.mobile-nav{display:flex;flex-direction:column;}
+.mobile-nav a{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0;
+  font-family:'Space Grotesk',sans-serif;font-size:22px;letter-spacing:-0.01em;
+  color:var(--ink);
+  border-bottom:1px solid var(--hairline);
+}
+.mobile-nav a span{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-muted);letter-spacing:0;}
+.mobile-cta{margin-top:22px;width:100%;justify-content:center;}
+html.menu-locked{overflow:hidden;}
+
+/* When the menu is open the header bar must be solid (also beats the dark-mode scrolled rule) */
+.site-header.menu-open,
+[data-theme="dark"] .site-header.menu-open{
+  background:var(--background);
+  border-bottom-color:var(--hairline);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+
+@media(max-width:767px){
+  .menu-toggle{display:inline-flex;}
+  .mobile-menu{display:block;}
+  .site-header .header-cta{display:none;}      /* moves into the menu on mobile */
+  .site-header .theme-toggle{margin-left:auto;} /* group toggle + hamburger on the right */
+}
+@media(min-width:768px){
+  .mobile-menu,.menu-toggle{display:none !important;}
+}
+@media(prefers-reduced-motion:reduce){
+  .mobile-menu,.menu-bar,.menu-toggle{transition:none;}
+}
 </style>
 </head>
 <body>
@@ -402,7 +475,24 @@ html[data-theme="dark"]{color-scheme:dark;}
       <a href="index.html#contact">Contact</a>
     </nav>
     <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"></button>
-    <a href="index.html#contact" class="btn btn-dark btn-sm start-project">
+    <a href="index.html#contact" class="btn btn-dark btn-sm start-project header-cta">
+      Start a project
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="menu-bar"></span><span class="menu-bar"></span><span class="menu-bar"></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <nav class="mobile-nav" aria-label="Mobile">
+      <a href="index.html#work">Work<span>01</span></a>
+      <a href="index.html#services">Services<span>02</span></a>
+      <a href="index.html#ideas">Ideas<span>03</span></a>
+      <a href="index.html#music">Music<span>04</span></a>
+      <a href="index.html#about">About<span>05</span></a>
+      <a href="index.html#contact">Contact<span>06</span></a>
+    </nav>
+    <a href="index.html#contact" class="btn btn-dark mobile-cta">
       Start a project
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
     </a>
@@ -791,6 +881,51 @@ html[data-theme="dark"]{color-scheme:dark;}
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup);
   else setup();
+})();
+</script>
+
+
+<script>
+(function(){
+  var header = document.getElementById('site-header');
+  var toggle = header && header.querySelector('.menu-toggle');
+  var menu = document.getElementById('mobile-menu');
+  if(!header || !toggle || !menu) return;
+  var root = document.documentElement;
+
+  function setOpen(open){
+    header.classList.toggle('menu-open', open);
+    root.classList.toggle('menu-locked', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if(open){ menu.removeAttribute('inert'); } else { menu.setAttribute('inert',''); }
+  }
+  setOpen(false);
+
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    setOpen(!header.classList.contains('menu-open'));
+  });
+
+  // Close when a link inside the menu is tapped (the anchor jump still happens)
+  menu.addEventListener('click', function(e){
+    if(e.target.closest('a')) setOpen(false);
+  });
+
+  // Close on tap outside the header, and on Escape
+  document.addEventListener('click', function(e){
+    if(header.classList.contains('menu-open') && !header.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && header.classList.contains('menu-open')){
+      setOpen(false); toggle.focus();
+    }
+  });
+
+  // If the window grows to desktop width, reset everything
+  window.addEventListener('resize', function(){
+    if(window.innerWidth >= 768 && header.classList.contains('menu-open')) setOpen(false);
+  });
 })();
 </script>
 
